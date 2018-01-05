@@ -1,0 +1,24 @@
+service: serverless-apikeys-test
+
+provider:
+  name: aws
+  runtime: nodejs6.10
+  apiKeys:
+    - serverless-apikeys-test-apikey
+  usagePlan:
+    quota:
+      limit: 10
+      offset: 0
+      period: DAY
+    throttle:
+      burstLimit: 10
+      rateLimit: 10
+
+functions:
+  hello:
+    handler: handler.hello
+    events:
+      - http:
+          path: hello
+          method: get
+          private: true
